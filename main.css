@@ -1,0 +1,135 @@
+/* Apply a global box-sizing of border-box to all elements */
+* {
+  box-sizing: border-box;
+}
+
+/* Style for the header */
+#header {
+  background-color: #fff;
+  color: #000;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style for the menu */
+#menu {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#menu li {
+  margin: 0 10px;
+}
+
+#menu li:first-child {
+  margin-left: 0;
+}
+
+#menu li:last-child {
+  margin-right: 0;
+}
+
+/* Style for the form */
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+fieldset {
+  border: solid;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+img {
+  margin-left: 10px;
+}
+
+.inline-checkbox, .inline-label{
+  display: inline-block;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+fieldset p {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+input[type="submit"]:hover {
+  background-color: #444;
+}
+
+#all_listings {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.listing {
+    flex: 1 0 250px; /* Set the initial width of each listing */
+    margin-right: 20px; /* Optional spacing between each listing */
+    margin-bottom: 20px; /* Spacing between rows of listings */
+    border: 1px solid #ccc; /* Add a border */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow */
+    padding: 10px; /* Add some padding */
+}
+
+#name {
+  color: #333;
+  font-size: medium;
+}
+
+a {
+  text-decoration: none;
+}
+
+#footer {
+  text-align: center;
+}
