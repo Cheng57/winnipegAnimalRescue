@@ -59,6 +59,14 @@ require('authenticate.php');
 							<input type="text" name="breed" id="breed">						
 						</li>
 						<li>
+							<label>Category:</label>
+							<select name="categories">
+								<option value="">Select a category</option>
+								<option value="cat">Cat</option>
+								<option value="dog">Dog</option>
+							</select>
+						</li>
+						<li>
 				         	<label for='image'>Image (.gif/.jpg/.jpeg/.png):</label>
 				         	<input type='file' name='image' id='image'>
 				         	<input type='submit' name='submit' value='Create'>						
