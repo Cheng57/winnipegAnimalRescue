@@ -47,22 +47,33 @@ require('ImageResizeException.php');
     $upload_error_detected = isset($_FILES['image']) && ($_FILES['image']['error'] > 0);
 
 if ($_POST && !empty(trim($_POST['name'])) && 
-	!empty(trim($_POST['age'])) && !empty(trim($_POST['sex'])) && !empty(trim($_POST['breed'])) )
+	!empty(trim($_POST['age'])) && !empty(trim($_POST['sex'])) && !empty(trim($_POST['breed'])) && 
+	!empty(trim($_POST['categories'])))
 {
 	$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	$age = filter_input(INPUT_POST, 'age', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	$sex = filter_input(INPUT_POST, 'sex', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	$breed = filter_input(INPUT_POST, 'breed', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-	
+	$category_name = $_POST['categories'];
 
-	$query = "INSERT INTO animallisting(name, age, sex, breed) 
-				VALUES(:name, :age, :sex, :breed)";
+	$query = "INSERT INTO animalcategory(name)
+			 	VALUES(:name)";
+	$statement = $db->prepare($query);
+
+	$statement->bindValue(':name', $category_name);
+	$statement->execute();
+
+	$category_id = $db->lastInsertId();
+
+	$query = "INSERT INTO animallisting(name, age, sex, breed, category_id) 
+				VALUES(:name, :age, :sex, :breed, :category_id)";
 	$statement = $db->prepare($query);
 
 	$statement->bindValue(':name', $name);
 	$statement->bindValue(':age', $age);
 	$statement->bindValue(':sex', $sex);
 	$statement->bindValue(':breed', $breed);
+	$statement->bindValue(':category_id', $category_id);
 
 	$statement->execute();
 
@@ -75,23 +86,11 @@ if ($_POST && !empty(trim($_POST['name'])) &&
 	    
 	    if(file_is_an_image($temporary_image_path, $new_image_path)){
 	        
-	        
-	        
-	       
-
-
-			
-
 			$image = new \Gumlet\ImageResize($temporary_image_path);
 
             $image->resizeToWidth(400);
             
             $image->save($new_image_path);	
-
-    	
-	        
-	        
-
 
 	        $query = "INSERT INTO animalphoto(path, animal_id)
 	                    VALUES(:path, :animal_id)";
@@ -120,12 +119,18 @@ if ($_POST && !empty(trim($_POST['name'])) &&
 	<link rel="stylesheet" href="main.css" type="text/css">
 </head>
 <body>
-	<?php if (empty(trim($_POST['name']))
+	<?php if(empty(trim($_POST['name']))
 		|| empty(trim($_POST['age'])) || empty(trim($_POST['sex'])) || empty(trim($_POST['breed']))): ?> 
 		<div>
 			<h1>An error occured while processing your post.</h1>
 			<p>Please fill up all text input.</p>
 			<a href="post.php">Return Post</a>
+		</div>
+	<?php elseif(empty(trim($_POST['categories']))): ?>
+		<div>
+			<h1>An error occured while processing your post.</h1>
+				<p>Please select a category.</p>
+				<a href="post.php">Return Post</a>			
 		</div>
 	<?php endif ?>
 
