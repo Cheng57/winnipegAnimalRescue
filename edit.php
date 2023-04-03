@@ -10,6 +10,8 @@
 
 require('connect.php');
 require('authenticate.php');
+require('ImageResize.php');
+require('ImageResizeException.php');
 
     function file_upload_path($original_filename, $upload_subfolder_name = 'uploads') {
        $current_folder = dirname(__FILE__);
@@ -115,7 +117,12 @@ if(isset($_POST['command1'])){
         $new_image_path        = file_upload_path($image_filename);
         
         if (file_is_an_image($temporary_image_path, $new_image_path)) {
-            move_uploaded_file($temporary_image_path, $new_image_path);
+            
+			$image = new \Gumlet\ImageResize($temporary_image_path);
+
+            $image->resizeToWidth(400);
+            
+            $image->save($new_image_path);	
             
             $query = "INSERT INTO animalphoto(path, animal_id)
                         VALUES(:path, :animal_id)";
