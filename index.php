@@ -45,6 +45,15 @@ $query = "SELECT animallisting.*, animalphoto.path
                <li>
                    <a href="post.php">New Post</a>
                </li>
+               <li>
+                    <a href="index.php">All</a>
+               </li>
+               <li>
+                    <a href="cats.php">Cats</a>
+               </li>
+               <li>
+                    <a href="dogs.php">Dogs</a>
+               </li>
            </ul>
        </div>
        <?php if($statement->rowcount() == 0): ?>
