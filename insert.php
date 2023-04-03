@@ -78,11 +78,7 @@ if ($_POST && !empty(trim($_POST['name'])) &&
 	        
 	        
 	       
-	        // $upload_path = dirname($new_image_path);
-			
-			// $filename = pathinfo($image_filename, PATHINFO_FILENAME) . '_medium.' . pathinfo($image_filename, PATHINFO_EXTENSION);
-			
-			// $upload_path_medium = file_upload_path($filename, $upload_subfolder_name);
+
 
 			
 
@@ -92,7 +88,7 @@ if ($_POST && !empty(trim($_POST['name'])) &&
             
             $image->save($new_image_path);	
 
-            // move_uploaded_file($temporary_image_path, $new_image_path);        	
+    	
 	        
 	        
 
