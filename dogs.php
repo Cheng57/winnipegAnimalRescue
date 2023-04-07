@@ -12,7 +12,7 @@ require('connect.php');
     
 $query = "SELECT animallisting.*, animalphoto.path 
           FROM  animalphoto
-          JOIN animallisting ON animallisting.id = animalphoto.animal_id
+          RIGHT JOIN animallisting ON animallisting.id = animalphoto.animal_id
           JOIN animalcategory ON animallisting.category_id = animalcategory.id
           WHERE animalcategory.name = 'dog'
           ORDER BY animallisting.id DESC 
