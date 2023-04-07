@@ -76,14 +76,33 @@ if(isset($_POST['command2'])){
 
         $statement->execute();
         $row = $statement->fetch();
+
+        // Delete the image file 
         unlink($row['path']);
 
-        $query = "DELETE FROM animallisting WHERE id = :id";
-        $statement = $db->prepare($query);
+        /*
+        Delete the animal's data in animallisting table
+        */
+        // $query = "DELETE FROM animallisting WHERE id = :id";
+        // $statement = $db->prepare($query);
+        // $statement->bindValue(':id', $id);
+
+        // $statement->execute();
+
+        $query = "DELETE FROM animalcategory WHERE id = (
+                SELECT category_id FROM animallisting WHERE id = :id)";
+        $statement = $db ->prepare($query);
         $statement->bindValue(':id', $id);
 
         $statement->execute();
 
+        
+
+        /* 
+        No need to hard code the deleting query for the file path data in animalphoto table
+        because there is a FK constraint, ON DELETE CASCADE, that specifies that the child data 
+        gets deleted when the parent data is deleted
+        */
 
         header("Location: index.php");
         exit;        
