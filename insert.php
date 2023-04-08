@@ -88,7 +88,7 @@ if ($_POST && !empty(trim($_POST['name'])) &&
 	        
 			$image = new \Gumlet\ImageResize($temporary_image_path);
 
-            $image->resizeToWidth(400);
+            $image->resize(230, 250);
             
             $image->save($new_image_path);	
 

@@ -77,18 +77,12 @@ if(isset($_POST['command2'])){
         $statement->execute();
         $row = $statement->fetch();
 
-        // Delete the image file 
+        // Delete the animal's image file 
         unlink($row['path']);
 
         /*
-        Delete the animal's data in animallisting table
+        Delete the animal's data in animalcategory table
         */
-        // $query = "DELETE FROM animallisting WHERE id = :id";
-        // $statement = $db->prepare($query);
-        // $statement->bindValue(':id', $id);
-
-        // $statement->execute();
-
         $query = "DELETE FROM animalcategory WHERE id = (
                 SELECT category_id FROM animallisting WHERE id = :id)";
         $statement = $db ->prepare($query);
@@ -99,9 +93,10 @@ if(isset($_POST['command2'])){
         
 
         /* 
-        No need to hard code the deleting query for the file path data in animalphoto table
-        because there is a FK constraint, ON DELETE CASCADE, that specifies that the child data 
-        gets deleted when the parent data is deleted
+        No need to hard code the deleting queries for the animal's data in animallisting table and 
+        the file path data in animalphoto table because there is the FK constraint, ON DELETE CASCADE, that specifies that the child data 
+        gets deleted when the parent data is deleted. In this case, animalcategory table is the parent of animallisting table
+        and animallisting table is the parent of the animalphoto table.
         */
 
         header("Location: index.php");
@@ -139,7 +134,7 @@ if(isset($_POST['command1'])){
             
 			$image = new \Gumlet\ImageResize($temporary_image_path);
 
-            $image->resizeToWidth(400);
+            $image->resize(230, 250);
             
             $image->save($new_image_path);	
             
